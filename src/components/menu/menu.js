@@ -7,7 +7,9 @@ let menuItems = [
   "What's New",
   'Tech Trends',
   'Music',
-  'Log Out'
+  'Log Out',
+  'Social Media',
+  'Subscribe'
 ];
 
 /*
@@ -32,3 +34,52 @@ let menuItems = [
 
   Step 6: Use 'menuMaker' to create a menu using the 'menuItems' array, and append the returned menu to the header.
 */
+
+  /*creating the architecture that only needs to be made once*/ 
+  const divClassHeader = document.querySelector('.header');
+  const menu = document.createElement('div');
+  const ul = document.createElement('ul');
+  divClassHeader.appendChild(menu);
+  menu.appendChild(ul);
+  menu.classList.add('menu');
+//
+function menuMaker(item) {
+    const li = document.createElement('li');
+    ul.appendChild(li);
+    li.textContent = item;
+
+    li.addEventListener('mouseenter',evt=> {
+        evt.target.style.borderBottom = '1px solid white';
+        evt.target.style.letterSpacing = '.2rem';
+        evt.target.style.transition = '.3s'
+        li.style.color = '#FFD480';
+    });
+    li.addEventListener('mouseleave',evt=> {
+      evt.target.style.borderBottom = 'none';
+      evt.target.style.letterSpacing = '0';
+      evt.target.style.transition = '.3s'
+      li.style.color = 'white';
+  });
+    const menuButton = document.querySelector('.menu-button');
+      menuButton.addEventListener('click',evt => {
+        menu.classList.add('menu--open');
+        menuButton.style.transform = 'rotate(90deg)';
+        menuButton.style.transition = '.3s';
+      });
+    menu.addEventListener('mouseleave', evt => {
+      menu.classList.remove('menu--open');
+      menuButton.style.transform = '';
+      menuButton.style.transition = '.3s';
+    });
+    
+      return menu; 
+}
+menuItems.forEach(item=> {
+  menuMaker(item);
+});
+//
+
+
+
+
+
