@@ -87,6 +87,13 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: "Jacob's Specialities",
+    date: 'July 18, 2023',
+    firstParagraph: "Hello, my name is Jacob, I want to be a front-end developer. It is really gratifying to do well and exceed expectations. I am really enjoying this work so far!",
+    secondParagraph: "In the midst of a bustling city, amidst the swirling chaos of traffic and the cacophony of voices, a solitary figure stood, lost in thought. The neon lights flickered overhead, casting an ethereal glow on the wet pavement below. Time seemed to stand still as the person's mind wandered through the labyrinth of memories and dreams. Each step taken echoed with a sense of purpose, a silent determination to carve a path through the complexities of life. The night sky above shimmered with countless stars, a celestial canvas that whispered stories of galaxies far beyond the reach of human comprehension. In that moment, the world seemed both vast and intimate, a tapestry of intertwining lives and infinite possibilities. And as the figure disappeared into the city's embrace, the echoes of their footsteps lingered, a reminder that even in the most crowded spaces, one can find solace in the beauty of their own thoughts.",
+    thirdParagraph: "Deep learning algorithms utilize artificial neural networks called deep neural networks, which consist of multiple layers of interconnected nodes or neurons. These networks can learn hierarchical representations of data by progressively extracting more complex features at each layer. The term deep refers to the depth of these networks, as they typically have many hidden layers between the input and output layers."
   }
 ];
 
@@ -116,25 +123,56 @@ const data = [
   Refresh the page to see the new article.
 */
 // title,date,firstParagraph,secondParagraph,thirdParagraph
- function articleMaker({}) {
-    const articles = document.createElement('.articles');
+ function articleMaker({title,date,firstParagraph,secondParagraph,thirdParagraph}) {
+    const articles = document.querySelector('.articles');
     const article = document.createElement('div');
-    const h2 = document.createElement('h2');
-    const date = document.createElement('p');
+    const titleOfArticle = document.createElement('h2');
+    const dateOfArticle = document.createElement('p');
     const p1 = document.createElement('p');
     const p2 = document.createElement('p');
     const p3 = document.createElement('p');
-    const expandButton = document.createElement('span');
+    const expandButton = document.createElement('img');
+    const header = document.querySelector('.header')
 
     articles.appendChild(article);
-    article.appendChild(h2);
-    article.appendChild(date);
+    article.appendChild(titleOfArticle);
+    article.appendChild(dateOfArticle);
     article.appendChild(p1);
     article.appendChild(p2);
     article.appendChild(p3);
     article.appendChild(expandButton);
 
-    return article; 
+    titleOfArticle.textContent = title;
+    dateOfArticle.textContent = date;
+    p1.textContent = firstParagraph;
+    p2.textContent = secondParagraph;
+    p3.textContent = thirdParagraph; 
+    expandButton.src = 'https://thenounproject.com/api/private/icons/174959/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0';
+    
+    expandButton.style.width = '50px';
+    expandButton.style.display = 'flex';
+    expandButton.style.marginLeft = '31rem';
+    expandButton.style.backgroundColor = 'transparent'
+    
+
+    article.classList.add('article')
+    p1.classList.add('date')
+    expandButton.classList.add('expandButton')
+
+    expandButton.addEventListener('click', evt => {
+      article.classList.toggle('article-open');
+      if (expandButton.style.transform == '') {
+           expandButton.style.transform = 'rotate(90deg)'
+           evt.target.style.transition = '1s'
+      } else {
+        expandButton.style.transform = '';
+        evt.target.style.transition = '1s'
+      }
+    });
+    
+    return articles; 
 }
-articleMaker()
-console.log('hello')
+
+data.forEach(dta => {
+  articleMaker(dta)
+})

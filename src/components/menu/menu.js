@@ -42,6 +42,7 @@ let menuItems = [
   divClassHeader.appendChild(menu);
   menu.appendChild(ul);
   menu.classList.add('menu');
+  const articles = document.querySelector('.articles');
 //
 function menuMaker(item) {
     const li = document.createElement('li');
@@ -65,11 +66,13 @@ function menuMaker(item) {
         menu.classList.add('menu--open');
         menuButton.style.transform = 'rotate(90deg)';
         menuButton.style.transition = '.3s';
+        articles.style.filter = 'blur(5px)';
       });
     menu.addEventListener('mouseleave', evt => {
       menu.classList.remove('menu--open');
       menuButton.style.transform = '';
       menuButton.style.transition = '.3s';
+      articles.style.filter = 'blur(0)';
     });
     
       return menu; 
